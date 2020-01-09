@@ -123,4 +123,19 @@ class Product
                     return false;
                 }
     }
+     function delete(){
+        $query = "DELETE FROM " . $this->table_name . " WHERE id = ?";
+        $stmt = $this->conn->prepare($query);
+
+        //sanitize 
+        $this->id = htmlspecialchars(strip_tags($this->id));
+
+        $stmt->bindParam(1,$this->id);
+        if($stmt->execute()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
